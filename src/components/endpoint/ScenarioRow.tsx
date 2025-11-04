@@ -1,6 +1,7 @@
 import { useScenario, useTestResults } from '../../hooks';
 import { parseHeaders, formatHeaders } from '../../utils/header-parser.util';
 import { ScenarioConfig } from './ScenarioConfig';
+import { ScenarioScripts } from './ScenarioScripts';
 import { useAppStore } from '../../store';
 
 interface Props { sectionId: string; endpointId: string; scenarioId: string }
@@ -34,6 +35,10 @@ export function ScenarioRow({ sectionId, endpointId, scenarioId }: Props) {
       <ScenarioConfig
         config={scenario.testConfig}
         onUpdate={(config) => updateScenario({ testConfig: config })}
+      />
+      <ScenarioScripts
+        scenario={scenario}
+        onUpdate={(updates) => updateScenario(updates)}
       />
     </div>
   );

@@ -7,4 +7,6 @@ export interface Scenario {
   requestBody?: string;
   headers?: Record<string, string>;
   testConfig?: TestConfig;
+  preRequestScript?: string; // JavaScript code to run before request
+  testScript?: string; // JavaScript code to run after request (assertions)
 }

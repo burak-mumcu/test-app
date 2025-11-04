@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { createEnvironmentSlice } from './slices/environment.slice';
 import { createSectionSlice } from './slices/section.slice';
 import { createEndpointSlice } from './slices/endpoint.slice';
 import { createScenarioSlice } from './slices/scenario.slice';
@@ -7,6 +8,7 @@ import { createPersistenceSlice } from './slices/persistence.slice';
 import type { AppStore } from './interfaces/store.interface';
 
 export const useAppStore = create<AppStore>()((...a) => ({
+  ...createEnvironmentSlice(...a),
   ...createSectionSlice(...a),
   ...createEndpointSlice(...a),
   ...createScenarioSlice(...a),
@@ -16,7 +18,7 @@ export const useAppStore = create<AppStore>()((...a) => ({
 
 // Auto-save on state changes
 useAppStore.subscribe((state) => {
-  if (state.sections.length > 0) {
+  if (state.sections.length > 0 || state.environments.length > 0) {
     state.saveToStorage();
   }
 });

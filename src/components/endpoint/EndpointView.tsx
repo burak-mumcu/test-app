@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useEndpoint, useSection } from '../../hooks';
 import { useAppStore } from '../../store';
 import type { Scenario } from '../../types';
 import { testService } from '../../services/test.service';
 import { ScenarioRow } from './ScenarioRow';
+import { generateCurl } from '../../utils/curl-generator.util';
 
 interface Props { sectionId: string; endpointId: string }
 
@@ -14,12 +16,27 @@ export function EndpointView({ sectionId, endpointId }: Props) {
   const addScenario = useAppStore((s) => s.addScenario);
   const setScenarioResult = useAppStore((s) => s.setScenarioResult);
   const resetResultsForSection = useAppStore((s) => s.resetResultsForSection);
+  const [showCurl, setShowCurl] = useState(false);
 
   const run = async () => {
     resetResultsForSection(sectionId);
+    const variables = useAppStore.getState().getActiveEnvironmentVariables();
     await testService.runEndpoint(section.baseUrl, endpoint, (result) => {
       setScenarioResult(sectionId, endpoint.id, result);
-    });
+    }, variables);
+  };
+
+  const handleCopyCurl = () => {
+    const firstScenario = endpoint.scenarios[0] || {
+      id: '',
+      name: 'Default',
+      expectedStatus: 200,
+      headers: {},
+      requestBody: undefined
+    };
+    const curl = generateCurl(section, endpoint, firstScenario);
+    navigator.clipboard.writeText(curl);
+    alert('Curl komutu kopyalandı!');
   };
 
   return (
@@ -36,6 +53,7 @@ export function EndpointView({ sectionId, endpointId }: Props) {
           <button className="success" onClick={run}>Run</button>
           <button className="ghost" onClick={() => addScenario(sectionId, endpointId)}>Senaryo Ekle</button>
           <button className="ghost" onClick={() => useAppStore.getState().duplicateEndpoint(sectionId, endpointId)}>Kopyala</button>
+          <button className="ghost" onClick={handleCopyCurl}>Curl Kopyala</button>
           <button className="ghost" onClick={() => removeEndpoint()}>Sil</button>
         </div>
       </div>

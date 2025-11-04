@@ -1,4 +1,17 @@
 import type { Section, Endpoint, Scenario, SectionResult, ScenarioResult } from '../../types';
+import type { Environment } from '../../types/interfaces/environment.interface';
+
+export interface EnvironmentSlice {
+  environments: Environment[];
+  activeEnvironmentId: string | null;
+  addEnvironment: (name?: string) => void;
+  removeEnvironment: (environmentId: string) => void;
+  updateEnvironment: (environmentId: string, patch: Partial<Environment>) => void;
+  setActiveEnvironment: (environmentId: string | null) => void;
+  setEnvironmentVariable: (environmentId: string, key: string, value: string) => void;
+  removeEnvironmentVariable: (environmentId: string, key: string) => void;
+  getActiveEnvironmentVariables: () => Record<string, string>;
+}
 
 export interface SectionSlice {
   sections: Section[];
@@ -42,5 +55,5 @@ export interface PersistenceSlice {
   clearStorage: () => void;
 }
 
-export interface AppStore extends SectionSlice, EndpointSlice, ScenarioSlice, ResultsSlice, PersistenceSlice {}
+export interface AppStore extends EnvironmentSlice, SectionSlice, EndpointSlice, ScenarioSlice, ResultsSlice, PersistenceSlice {}
 
