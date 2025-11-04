@@ -75,7 +75,7 @@ export function App() {
       {sections.length === 0 && (
         <div className="panel" style={{ textAlign: 'center', padding: '48px' }}>
           <p className="muted">Henüz section yok. Yeni bir section ekleyin.</p>
-          <button className="primary" onClick={() => addSection()} style={{ marginTop: '16px' }}>
+          <button className="primary" onClick={() => addSection()} style={{ marginTop: '16px', width: '100%' }}>
             İlk Section'ı Ekle
           </button>
         </div>

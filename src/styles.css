@@ -42,3 +42,41 @@ button.ghost{background:transparent;border-color:#374151}
 .tab:not(:hover) .tab-close{opacity:0}
 .tab:hover .tab-close{opacity:1}
 
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .container{padding:16px}
+  .panel{padding:12px}
+  .space-between{flex-direction:column;align-items:stretch;gap:12px}
+  .row{flex-direction:column;align-items:stretch;gap:8px}
+  .endpoint{flex-direction:column;align-items:stretch}
+  .scenario{flex-direction:column;align-items:stretch}
+  .w-160,.w-120,.w-80{width:100%}
+  .tab{min-width:100px;font-size:12px;padding:6px 10px}
+  .tab-label{font-size:12px}
+  h1{font-size:24px;margin:0}
+  input,select,button,textarea{font-size:14px;padding:8px;width:100%}
+  button{min-height:40px}
+  .row > button{width:100%}
+}
+
+@media (max-width: 480px) {
+  .container{padding:12px}
+  .panel{padding:10px}
+  .tab{min-width:80px;padding:6px 8px;font-size:11px}
+  .tab-label{font-size:11px}
+  h1{font-size:20px}
+  h2{font-size:18px}
+  .tabs-container{padding:6px 6px 0}
+  .tabs{gap:2px}
+  .nowrap{white-space:normal}
+  .scenario > span:not(.tag){display:block;width:100%}
+  .scenario > button{width:100%;margin-top:4px}
+}
+
+/* Additional responsive adjustments */
+@media (max-width: 768px) {
+  .scenario > span.small{white-space:normal;word-break:break-word}
+  label{min-width:auto !important;width:100%}
+  .row > label{width:100%;margin-bottom:4px}
+}
+
